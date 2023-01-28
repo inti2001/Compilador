@@ -1,0 +1,20 @@
+{
+  "name": "compilador",
+  "version": "1.0.0",
+  "description": "compilador",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/inti2001/Compilador.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/inti2001/Compilador/issues"
+  },
+  "homepage": "https://github.com/inti2001/Compilador#readme",
+  "type": "module"
+}
