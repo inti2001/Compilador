@@ -1,5 +1,5 @@
 import { Lexico } from "./lexico/clases/lexico.js";
-let src = "-{}while , casa*int 39.165+ 120 22 void=float 39.165+ 12 && ||";
+let src = "esto int = + && 12.345";
 let lexico = new Lexico(src);
 
 if(src.length <= 0) { 
