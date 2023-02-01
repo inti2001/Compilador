@@ -2,6 +2,10 @@
 //las reducciones son numeros negativos r0 (aceptacion) es -1, r1 es -2, etc.
 //los desplazamientos son numeros positivos d3 es 3, d2 es 2, etc.
 
+import { NoTerminal } from "../clases/NoTerminal.js";
+import { Terminal } from "../clases/Terminal.js";
+import { Elemento } from "../clases/Elemento.js";
+
 export class Sintactico{
     
     constructor(src) {
@@ -27,26 +31,37 @@ export class Sintactico{
     }
 
     analizaSintactico(lexico){
+        let terminal = new Terminal("$"); //terminal son las palabras
+        let noTerminal = new NoTerminal("E"); //no terminal es E
+        let elemento = new Elemento(0); //elemento son los numeros
+
         let col = 0;
         let row = 0;
         let E = 3;
         let elementoIzq = 0;
         
-        this.pila.unshift("$");
-        this.pila.unshift(0);
+        this.pila.unshift(terminal);
+        this.pila.unshift(elemento);
+
         lexico.getSimbolo(); //analiza una simbolo de la src
         
         if(lexico.cad != "$"){ // si la src no esta vacia
             while(lexico.cad != "$" || !this.aceptacion){
-                row = this.pila[0];
+                let ter = new Terminal(""); //terminal son las palabras
+                let noTer = new NoTerminal("E"); //no terminal es E
+                let ele = new Elemento(0); //elemento son los numeros
+
+                row = this.pila[0].dato;
                 col = lexico.tipo;
     
                 this.accion = this.tablaE1[row][col];
     
                 if(this.accion > 0){
                     //desplazamiento
-                    this.pila.unshift(lexico.cad);
-                    this.pila.unshift(this.accion);
+                    ter.dato = lexico.cad;
+                    ele.dato = this.accion;
+                    this.pila.unshift(ter);
+                    this.pila.unshift(ele);
                 } else if(this.accion < 0){
                     //reduccion
                     switch (this.accion) {
@@ -67,11 +82,16 @@ export class Sintactico{
                         default:
                             break;
                     }
-                    elementoIzq = this.pila[0];
-                    this.pila.unshift("E");
-                    this.pila.unshift(this.tablaE1[elementoIzq][E]);
-                    if(!this.aceptacion)
+
+                    elementoIzq = this.pila[0].dato;
+                    ele.dato = this.tablaE1[elementoIzq][E];
+                    
+                    if(!this.aceptacion){
+                        this.pila.unshift(noTer);
+                        this.pila.unshift(ele);
                         this.printTableRow(lexico.cad);
+                    }
+                    
                 } else {
                     //error
                     break;
@@ -84,8 +104,6 @@ export class Sintactico{
                 this.contadorSimbolos++;
             }
         }
-        
-     
     }
 
     printTableRow(cad){
@@ -95,7 +113,7 @@ export class Sintactico{
     printPila(){
         let strPila = ""; 
         for (let index = this.pila.length-1; index >= 0; index--) {
-            strPila += this.pila[index];
+            strPila += this.pila[index].dato;
         }
         return strPila;
     }

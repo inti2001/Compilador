@@ -1,5 +1,6 @@
 import { Lexico } from "./lexico/clases/lexico.js";
 import { Sintactico } from "./sintactico/sintactico.js";
+
 //hola+mundo
 //a+b+c+d+e+f
 let src = "hola+mundo";
