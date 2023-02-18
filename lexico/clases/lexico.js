@@ -255,7 +255,7 @@ export class Lexico {
     fillInfo(){
         switch (this.estado) { 
             case 0:
-                this.tipo = 2; //100
+                this.tipo = 23; //100  2 $
                 this.simbolo = "null";
                 break;
             case 1:
@@ -275,7 +275,7 @@ export class Lexico {
                 this.simbolo = "Tipo";
                 break;
             case 5:
-                this.tipo = 1; // 5
+                this.tipo = 5; // 5
                 this.simbolo = "OpSum";
                 break;
             case 6:

@@ -3,11 +3,14 @@ import { Sintactico } from "./sintactico/sintactico.js";
 
 //hola+mundo
 //a+b+c+d+e+f
-let src = "hola+mundo";
+let src = "int main(){int a; while(a != 2){a=a+a;}}";
 let lexico = new Lexico(src);
 let sintactico = new Sintactico(lexico);
 
-sintactico.analizaSintactico(lexico);
+//analizaLexico();
+if(sintactico.analizaSintactico(lexico))
+    console.log("Entrada Aceptada");
+
 
 
 function analizaLexico(){
