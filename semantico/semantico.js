@@ -118,7 +118,6 @@ export class Semantico{
         if(typeof hijos != "undefined"){
             for(let i = 0; i < hijos.length; i++){
                 if(hijos[i].dato == "DefFunc"){
-                    console.log(hijos[i].dato);
                     newDefFunc = new DefFunc(hijos[i].hijos[0], hijos[i].hijos[1]);
 
                     let funcion = tablaDefsFunciones.find(funcion => funcion.id.dato == hijos[i].hijos[1].dato);
@@ -131,7 +130,6 @@ export class Semantico{
                     this.ambitoActual = hijos[i].hijos[1];
                 }
                 else if(hijos[i].dato == "Params"){
-                    console.log(hijos[i].dato);
                     if(hijos[i].hijos.length > 1){
                         if(hijos[i].hijos[0].dato != ''){
                             newDefParam = new DefVar(hijos[i].hijos[0], hijos[i].hijos[1], this.ambitoActual);
@@ -162,7 +160,6 @@ export class Semantico{
                     }
                 }
                 else if(hijos[i].dato == "DefVar"){
-                    console.log(hijos[i].dato);
                     newDefvar = new DefVar(hijos[i].hijos[0], hijos[i].hijos[1], this.ambitoActual);
                     //
                     let encontrado = tablaDefsVariables.find(variable => 
@@ -293,8 +290,8 @@ export class Semantico{
                     return expresion;
                 else {
                     this.valido = false;
-                    this.codigoError = 5; //tipos incompatibles
-                    this.muestraError(nRegla + " '" + encontrado.tipo.dato + "' y '" + expresion + "'");
+                    //this.codigoError = 5; //tipos incompatibles
+                    //this.muestraError(nRegla + " '" + encontrado.tipo.dato + "' y '" + expresion + "'");
                     return "undefined";
                 }
             } else {

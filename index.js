@@ -8,7 +8,7 @@ import { Nodo } from "./clases/Nodo.js";
 //int main(){int a;}
 //int main(int x, int y){int a,b; funcion(hola, adios, okay);}
 //int main(int x, float y){int a,b; funcion(10 == (20 - 1));}
-let src = "int main(int x, int y){int a,b; funcion(hola, adios, okay);}";
+let src = "int main(float x, float y,float y){int a,b,b; if(a == 20){b = a;}else{b = a;}}";
 let lexico = new Lexico(src);
 let sintactico = new Sintactico(lexico);
 let semantico = new Semantico();
