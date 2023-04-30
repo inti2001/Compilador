@@ -1,14 +1,17 @@
 import { Lexico } from "./lexico/clases/lexico.js";
 import { Sintactico } from "./sintactico/sintactico.js";
+import { Semantico } from "./semantico/semantico.js"
 import { Nodo } from "./clases/Nodo.js";
 
 //hola+mundo
 //int main(){int a; if(a == 7){a = 8;}}
 //int main(){int a;}
 //int main(int x, int y){int a,b; funcion(hola, adios, okay);}
-let src = "int main(int x, int y){int a,b; funcion(10 == (20 - 1));}";
+//int main(int x, float y){int a,b; funcion(10 == (20 - 1));}
+let src = "int main(int x, int y){int a,b; funcion(hola, adios, okay);}";
 let lexico = new Lexico(src);
 let sintactico = new Sintactico(lexico);
+let semantico = new Semantico();
 let arbol = new Nodo();
 let num = 1;
 
@@ -16,10 +19,18 @@ let num = 1;
 
 arbol = sintactico.analizaSintactico(lexico)
 if(arbol){
-    //console.log("Entrada Aceptada");
-    muestraArbol(arbol);
+    console.log("Sintactica correcta");
+    semantico.arbol = arbol;
+    semantico.analizaSemantico();
+    if(semantico.valido){
+        console.log("Semantica correcta");
+    }
+    else{
+        console.log("Error semantico");
+        //semantico.muestraError();
+    }
+    //semantico.muestraArbol();
 }
-    
 
 function analizaLexico(){
     if(src.length <= 0) { 
