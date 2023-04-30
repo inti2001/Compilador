@@ -2,19 +2,67 @@
 Seminario de Traductores de Lenguajes 2
 Inti Martínez Flores 220790938
 
-Analizador Sintactico con la tabla LR Ejercicio 1
-![image](https://user-images.githubusercontent.com/58715706/217390025-685cba70-8b75-49f1-8591-d377291f7829.png)
-
-Analizador Sintactico con la tabla LR Ejercicio 2
-![image](https://user-images.githubusercontent.com/58715706/217390340-e175c387-e2ac-4593-bb44-6bdbf8c875ae.png)
-
-Analizador Sintactico con Tabla LR completa analizando:
-int main(){
-  int a; 
-  while(a != 2){
-    a=a+a;
+Analizador Semantico con ejemplo correcto: 
+int main(int x, float y)
+{
+  int a,b; 
+  if(a == 20)
+  { 
+    b = a+x;
+  }
+  else
+  {
+    b = a-x;
   }
 }
 
-![image](https://user-images.githubusercontent.com/58715706/219902466-73685dae-d14b-4db9-bf6a-a879fe7de1c2.png)
-![image](https://user-images.githubusercontent.com/58715706/219902472-f680b658-70f6-4db7-bc86-08b06b237104.png)
+![image](https://user-images.githubusercontent.com/58715706/235333282-b1f54d76-5478-4966-ab82-c06d5bf1ea1d.png)
+
+Analizador Semantico con ejemplo incorrecto:
+int main(float x, float y)
+{
+  int a,b; 
+  if(a == 20)
+  {
+    b = a+x;
+  }
+  else
+  {
+    b = a-x;
+  }
+}
+
+![image](https://user-images.githubusercontent.com/58715706/235333418-ee6baffb-e5e5-4044-ab75-6e5c57505b4d.png)
+
+Analizador Semantico con ejemplo incorrecto:
+int main(float x, float y)
+{
+  int a,b; 
+  if(a == 20)
+  {
+    b = a+holaa;
+  }
+  else
+  {
+    b = a;
+  }
+}
+
+![image](https://user-images.githubusercontent.com/58715706/235333472-fa411e3b-1ecd-4f30-a2d6-ef71ae1896fc.png)
+
+int main(float x, float y, float y)
+{
+  int a,b,b; 
+  if(a == 20)
+  {
+    b = a;
+  }
+  else
+  {
+    b = a;
+  }
+}
+
+![image](https://user-images.githubusercontent.com/58715706/235333522-d1b56561-762e-4e3b-bf36-73ecac29fc1c.png)
+
+
