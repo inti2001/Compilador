@@ -198,7 +198,10 @@ export class Semantico{
     buscaSentencias(hijos){
         if(typeof hijos != "undefined"){
             for(let i = 0; i < hijos.length; i++){
-                if(hijos[i].dato == "Sentencia"){
+                if(hijos[i].dato == "DefFunc"){
+                    this.ambitoActual = hijos[i].hijos[1];
+                }
+                else if(hijos[i].dato == "Sentencia"){
                     //console.log("Sentencia");
                     //console.log(hijos[i]);
                     this.analizaSentencia(hijos[i]);
@@ -212,7 +215,7 @@ export class Semantico{
     checkListaVar(listaVar, tipo){
         if(listaVar.hijos.length > 0){
             newDefvar = new DefVar(tipo, listaVar.hijos[1], this.ambitoActual);
-            //
+            
             let encontrado = tablaDefsVariables.find(variable => 
                 variable.id.dato == listaVar.hijos[1].dato && (variable.ambito.dato == this.ambitoActual.dato || variable.ambito.dato == "*"));
             if(encontrado){
@@ -281,7 +284,7 @@ export class Semantico{
         //console.log("///////////////////"); 
         if(hijo instanceof R21) {
             nRegla = "R21";
-            let id = hijo.hijos[0].dato;      
+            let id = hijo.hijos[0].dato;    
             let encontrado = tablaDefsVariables.find(variable => 
                 variable.id.dato == id && (variable.ambito.dato == this.ambitoActual.dato || variable.ambito.dato == "*"));
             if(encontrado) {
@@ -355,14 +358,14 @@ export class Semantico{
 
     analizaLlamadaFunc(hijo){
         let id = hijo.hijos[0].dato;
-        
+
         let listaParametros = [];
         let funcion = tablaDefsFunciones.find(funcion => funcion.id.dato == id);
+ 
         if(funcion) {
             let listaArgumentos = this.analizaArgs(hijo.hijos[2]);
-            
             tablaDefsParametros.forEach(element => {
-                if(element.ambito.dato == this.ambitoActual.dato){
+                if(element.ambito.dato == funcion.id.dato){
                     listaParametros.push(element);
                 }
             });
@@ -396,7 +399,7 @@ export class Semantico{
 
     analizaArgs(args){
         let listaArgumentos = [];
-        console.log(">> " + args); 
+        //console.log(">> " + args); 
         if(typeof args != "undefined"){
             if(args.hijos.length != 0) {
                 let i = 0;
@@ -405,7 +408,7 @@ export class Semantico{
                     i++;
 
                 let expresion = this.analizaExpresion(args.hijos[i]);
-                console.log(expresion)
+                //console.log(expresion)
                 listaArgumentos.unshift(expresion);
                 listaArgumentos = [...listaArgumentos, ...this.analizaArgs(args.hijos[i + 1])]
             }
@@ -442,7 +445,7 @@ export class Semantico{
 
     analizaTermino(hijo) {
         if(hijo instanceof R35) {
-            return this.analizarLlamadaFunc(hijo.hijos[0]);
+            return this.analizaLlamadaFunc(hijo.hijos[0]);
         }
 
         else if(hijo instanceof R36) {
@@ -457,6 +460,7 @@ export class Semantico{
                 let funcion = tablaDefsFunciones.find(funcion => funcion.id.dato == this.ambitoActual.dato);
                 if(funcion) {
                     tablaDefsParametros.forEach(element => {
+                        
                         if(element.ambito.dato == this.ambitoActual.dato){    
                             if(element.id.dato == id){
                                 found = true;

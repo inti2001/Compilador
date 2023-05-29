@@ -170,6 +170,7 @@ export class Sintactico{
         let terminal = new Terminal("$"); //terminal son las palabras
         let elemento = new Elemento(0); //elemento son los numeros  
         let raiz = new Nodo();
+        let raizfunc = new Nodo();
         let regla = new Nodo();
         let dato = new Nodo();
         let deflocal = [];
@@ -178,6 +179,7 @@ export class Sintactico{
         let expresion = [];
         let sentenciabloque = [];
         let argumentos = [];
+        let nodosFunc = [];
 
         let col = 0;
         let row = 0;
@@ -244,6 +246,8 @@ export class Sintactico{
                             regla.dato = "Defs";
                             regla.hijos.push(raiz);
 
+                            //console.log("raiz")
+                            //console.log(raiz)
                             raiz = regla;
 
                             console.log(regla);
@@ -258,6 +262,7 @@ export class Sintactico{
                             regla.dato = "Defs";
                             regla.hijos.push(raiz);
                             regla.hijos.push(raiz.hijos.pop());
+                            regla.hijos.push(nodosFunc.pop());  ///thiiiiiiiissssss
 
                             raiz = regla;
 
@@ -387,7 +392,9 @@ export class Sintactico{
                             this.auxPila = [].concat(this.pila);
                             regla = this.generaRegla(10, this.auxPila);
                             regla.dato = "Params";
-                            regla.hijos.push(raiz);
+                            
+                            //regla.hijos.push(raiz);
+                            nodosFunc.push(raiz); ///thiiiiiiiissssss
 
                             params.push(regla);
 
@@ -406,6 +413,8 @@ export class Sintactico{
                             regla.hijos.push(regla.tipo);
                             regla.hijos.push(regla.id);
                             regla.hijos.push(params.pop());
+
+                            nodosFunc.push(raiz); ///thiiiiiiiissssss
 
                             params.push(regla);
 
